@@ -1,12 +1,14 @@
 // Find the maximum
+
 function maxOfTwoNumbers(num1, num2) {
-  if (num1 > num2) {
+  if (num1 === num2) {
     return num1;
-  } else if (num2 > num1) {
-    return num2;
+  } else if (num1 > num2) {
+    return num1;
   } else {
-    return num2;
+    return num2
   }
+
 }
 
 // Finding Longest Word
@@ -19,41 +21,57 @@ var words = [
   'orchard',
   'crackpot'
 ];
-function findLongestWord(arr) {
-  if (arr.length === 0) {
-    return;
+
+function findLongestLength(arr) {
+  let array = " "
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].length > array.length) {
+      array = arr[i];
+    }
   }
-  let longest = "";
-  for(let i=0; i<arr.length; i++) {
-    if (arr[i].length > longest.length) {
-        longest = arr[i];
-    }  
-  }
-  return longest;
+  return array
 }
 
+function findLongestWord(arr) {
+  switch (arr.length) {
+    case 0:
+      return;
+    case 1:
+      return arr[0];
+    default:
+      return findLongestLength(arr);
+  }
+}
 // Calculating a Sum
 
 var numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumArray(arr) {
-  let number= 0;
-  for(let i=0; i<arr.length; i++) {
-    number += arr[i];
-  }
-  return number;
+function sum(a, b) {
+  return a + b
 }
+
+function sumArray(arr) {
+  if (arr.length === 0) {
+    return 0;
+  } else {
+    return arr.reduce(sum);
+  }
+}
+
+
 
 // Calculate the Average
 
 var numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
 function averageNumbers(arr) {
-  if (arr.length === 0) { 
+  if (arr.length === 0) {
     return;
+  } else {
+    return arr.reduce(sum) / arr.length;
   }
-  return sumArray(arr) / arr.length;
 }
+
 
 // Array of Strings
 var wordsArr = [
@@ -69,16 +87,24 @@ var wordsArr = [
   'palace'
 ];
 
-function averageWordLength(arr) {
-  if (arr.length === 0) { 
-    return;
+function findLength(arr) {
+  let list = [];
+  for (let i = 0; i < arr.length; i++) {
+    list.push(arr[i].length)
   }
-  let sum= 0
-  for(let i=0; i < arr.length; i++) {
-    sum += arr[i].length
-  }
-  return sum / arr.length
+  return list
 }
+
+function averageWordLength(arr) {
+  let elementsLengthArray = findLength(arr);
+  let averageLength = Math.floor(averageNumbers(elementsLengthArray));
+  if (arr.length === 0) {
+    return;
+  } else {
+    return averageLength;
+  }
+}
+
 
 // Unique Arrays
 var wordsUnique = [
@@ -96,11 +122,18 @@ var wordsUnique = [
 ];
 
 function uniquifyArray(arr) {
-  if (arr.length === 0) { 
+  if (arr.length === 0) {
     return;
+  } else {
+    let array = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (!array.includes(arr[i])) {
+        array.push(arr[i]);
+      }
+    }
+    return array;
   }
 }
-
 // Finding Elements
 var wordsFind = [
   'machine',
@@ -113,10 +146,14 @@ var wordsFind = [
   'disobedience'
 ];
 
-function doesWordExist(arr) {
-  if (arr.length === 0) { 
+function doesWordExist(arr, word) {
+  if (arr.length === 0) {
     return false;
-  } else 
+  } else if (arr.includes(word)) {
+    return true
+  } else if (!arr.includes(word)) {
+    return false
+  }
 
 }
 
@@ -135,13 +172,28 @@ var wordsCount = [
   'matter'
 ];
 
-function howManyTimes(arr) {
-  if (arr.length === 0) { 
-    return false;
+function count(arr, word) {
+  let array = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!array.includes(word)) {
+      array.push(word);
+    }
   }
-
+  return array;
 }
 
+function filtering(arr,word) {
+  return arr.filter(arr => arr.includes (word));
+}
+
+function howManyTimes(arr, word) {
+  let list = filtering(arr,word)
+  if (arr.length === 0) {
+    return false;
+  } else {
+    return list.length;
+  }
+}
 // Bonus Quest
 
 var matrix = [
@@ -167,6 +219,10 @@ var matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {
+function greatestProduct(arr, num) {
+  let repetitionList = filtering(arr,num);
 
+  if(arr.length === repetitionList.length) {
+     return arr[0][0] * arr[0][0] * arr[0][0] * arr[0][0]
+  }
 }
